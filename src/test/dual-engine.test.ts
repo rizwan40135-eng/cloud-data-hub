@@ -19,7 +19,6 @@ describe("dual-engine switch", () => {
     const env = process.env;
     const prevDb = env["DATABASE_URL"];
     const prevS3 = env["S3_BUCKET"];
-    const env = process.env;
     try {
       delete env["DATABASE_URL"];
       delete env["S3_BUCKET"];
