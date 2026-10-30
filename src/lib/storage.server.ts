@@ -12,13 +12,13 @@ import type { FileRow } from "./db.server";
 export type EngineMode = "production" | "preview";
 
 export function s3Mode(): EngineMode {
-  return process.env.S3_BUCKET ? "production" : "preview";
+  return process.env["S3_BUCKET"] ? "production" : "preview";
 }
 
 function s3Config() {
   return {
-    region: process.env.AWS_REGION ?? "ap-south-1",
-    bucket: process.env.S3_BUCKET as string,
+    region: process.env["AWS_REGION"] ?? "ap-south-1",
+    bucket: process.env["S3_BUCKET"] as string,
   };
 }
 

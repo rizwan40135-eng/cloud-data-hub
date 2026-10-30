@@ -16,8 +16,9 @@ describe("idempotent schema", () => {
 
 describe("dual-engine switch", () => {
   it("uses pg/S3 only when the env vars are set", () => {
-    const prevDb = process.env.DATABASE_URL;
-    const prevS3 = process.env.S3_BUCKET;
+    const env = process.env;
+    const prevDb = env["DATABASE_URL"];
+    const prevS3 = env["S3_BUCKET"];
     const env = process.env;
     try {
       delete env["DATABASE_URL"];
