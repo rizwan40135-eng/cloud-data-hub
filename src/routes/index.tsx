@@ -66,7 +66,12 @@ function Index() {
 
   const download = useMutation({
     mutationFn: (fileId: string) => getDownloadUrl({ data: { fileId } }),
-    onSuccess: ({ url }) => window.open(url, "_blank"),
+    onSuccess: ({ url }) => {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "";
+      a.click();
+    },
   });
 
   async function handleUpload(fileList: FileList | null) {

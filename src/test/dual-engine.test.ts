@@ -18,20 +18,21 @@ describe("dual-engine switch", () => {
   it("uses pg/S3 only when the env vars are set", () => {
     const prevDb = process.env.DATABASE_URL;
     const prevS3 = process.env.S3_BUCKET;
+    const env = process.env;
     try {
-      delete process.env.DATABASE_URL;
-      delete process.env.S3_BUCKET;
+      delete env["DATABASE_URL"];
+      delete env["S3_BUCKET"];
       expect(dbMode()).toBe("preview");
       expect(s3Mode()).toBe("preview");
-      process.env.DATABASE_URL = "postgresql://u:p@h:5432/db";
-      process.env.S3_BUCKET = "bucket";
+      env["DATABASE_URL"] = "postgresql://u:p@h:5432/db";
+      env["S3_BUCKET"] = "bucket";
       expect(dbMode()).toBe("production");
       expect(s3Mode()).toBe("production");
     } finally {
-      if (prevDb) process.env.DATABASE_URL = prevDb;
-      else delete process.env.DATABASE_URL;
-      if (prevS3) process.env.S3_BUCKET = prevS3;
-      else delete process.env.S3_BUCKET;
+      if (prevDb) env["DATABASE_URL"] = prevDb;
+      else delete env["DATABASE_URL"];
+      if (prevS3) env["S3_BUCKET"] = prevS3;
+      else delete env["S3_BUCKET"];
     }
   });
 });
