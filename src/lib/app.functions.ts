@@ -9,7 +9,7 @@ import { buildS3Key, mockDownloadUrl, presignGet, presignPut, s3Mode } from "./s
 export const getSystemStatus = createServerFn({ method: "GET" }).handler(async () => ({
   dbEngine: dbMode(),
   s3Engine: s3Mode(),
-  region: process.env.AWS_REGION ?? null,
+  region: process.env["AWS_REGION"] ?? null,
 }));
 
 // ---- Projects ----

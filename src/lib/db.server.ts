@@ -11,7 +11,7 @@ import { SCHEMA_SQL } from "./schema.mjs";
 export type EngineMode = "production" | "preview";
 
 export function dbMode(): EngineMode {
-  return process.env.DATABASE_URL ? "production" : "preview";
+  return process.env["DATABASE_URL"] ? "production" : "preview";
 }
 
 export interface ProjectRow {
@@ -41,9 +41,9 @@ function getPool(): Promise<import("pg").Pool> {
     poolPromise = (async () => {
       const { Pool } = await import("pg");
       const pool = new Pool({
-        connectionString: process.env.DATABASE_URL,
+        connectionString: process.env["DATABASE_URL"],
         max: 5,
-        ssl: /sslmode=(require|verify-full)/.test(process.env.DATABASE_URL ?? "")
+        ssl: /sslmode=(require|verify-full)/.test(process.env["DATABASE_URL"] ?? "")
           ? { rejectUnauthorized: false }
           : undefined,
       });
@@ -115,7 +115,7 @@ export const mockStore = {
       ...file,
       id: crypto.randomUUID(),
       created_at: new Date().toISOString(),
-      content: `Preview placeholder for ${file.file_name} (${file.file_size} bytes). On EC2 this lives in S3 bucket ${process.env.S3_BUCKET ?? "(none)"} under key ${file.s3_key}.`,
+      content: `Preview placeholder for ${file.file_name} (${file.file_size} bytes). On EC2 this lives in S3 bucket ${process.env["S3_BUCKET"] ?? "(none)"} under key ${file.s3_key}.`,
     };
     state.files = [...state.files.filter((f) => f.s3_key !== file.s3_key), row];
     return row;
