@@ -1,0 +1,6 @@
+name,description,status
+API Gateway Rollout,Migrate edge traffic to the new gateway.,active
+RDS Failover Drill,Quarterly multi-AZ failover exercise.,planned
+S3 Lifecycle Policy,Tier cold documents to infrequent access.,active
+EC2 Image Hardening,Rebuild AMIs with patched base images.,done
+Observability Stack,Ship structured logs and alerts.,planned
